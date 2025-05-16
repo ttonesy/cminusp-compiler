@@ -697,12 +697,17 @@ int main(int argc, char **argv) {
     for(i = 0; i < argc; i++)
     {
         if (strcmp(argv[i], "-d") == 0) mydebug = 1;
+        // For the "-o" option in lab9.y main() function:
         if (strcmp(argv[i], "-o") == 0)
-        {
-            // we have a file input
-            strcpy(s, argv[i+1]);
-            strcat(s, ".asm");
-        }
+            {
+                // Create output directory if it doesn't exist
+                mkdir("output", 0777);  // Add #include <sys/stat.h> at the top
+        
+                // We have a file input
+                strcpy(s, "output/");   // Prepend the directory
+                strcat(s, argv[i+1]);   // Add the filename
+                strcat(s, ".asm");      // Add the extension
+            }
     }
 
     // now open the file that is referenced by s
